@@ -1,5 +1,5 @@
 var express = require('express'); //require為使用哪些模組
-var mongodb = require('mongodb'); //使用模組mongodb
+var mongodb = require('mongodb').MongoClient; //使用模組mongodb
 var app = express(); //建立express實體，將express初始化，去NEW一個express，變數app才是重點。
 
 var mongodbURL =
@@ -8,7 +8,7 @@ var mongodbURL =
 var myDB; //建立一個全域變數myDB
 mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.MongoClient的方法connect()進行連線
 	if(err){                                               //事件監聽器用在非同步程式碼，不確定何時會用到
-		console.log('err');                                  //若回傳的參數有error，用console.log()印出錯誤內容
+		console.log(err);                                  //若回傳的參數有error，用console.log()印出錯誤內容
 	} else{
 		myDB = db;                                         //在mongoDB成功連線後，留住db物件
 		console.log('connection success');                 //若沒有錯誤表示連線成功，印出connection success
