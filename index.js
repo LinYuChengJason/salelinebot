@@ -3,7 +3,7 @@ var mongodb = require('mongodb'); //使用模組mongodb
 var app = express(); //建立express實體，將express初始化，去NEW一個express，變數app才是重點。
 
 var mongodbURL =
-'mongodb://LinYuCheng:a0936662285@ds143081.mlab.com:43081/jasondatabase'; //將MongoDB的位置在Server程式碼中以一個變數儲存
+'mongodb+srv://LinYuCheng:a0936662285@salelinebot-6uako.mongodb.net/test?retryWrites=true'; //將MongoDB的位置在Server程式碼中以一個變數儲存
 
 var myDB; //建立一個全域變數myDB
 mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.MongoClient的方法connect()進行連線
