@@ -8,7 +8,7 @@ var mongodbURL =
 var myDB; //建立一個全域變數myDB
 mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.MongoClient的方法connect()進行連線
 	if(err){                                               //事件監聽器用在非同步程式碼，不確定何時會用到
-		console.log(err);                                  //若回傳的參數有error，用console.log()印出錯誤內容
+		console.log('err');                                  //若回傳的參數有error，用console.log()印出錯誤內容
 	} else{
 		myDB = db;                                         //在mongoDB成功連線後，留住db物件
 		console.log('connection success');                 //若沒有錯誤表示連線成功，印出connection success
