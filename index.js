@@ -1,5 +1,5 @@
 var express = require('express'); //require為使用哪些模組
-var mongodb = require('mongodb').MongoClient; //使用模組mongodb
+var mongodb = require('mongodb'); //使用模組mongodb
 var app = express(); //建立express實體，將express初始化，去NEW一個express，變數app才是重點。
 
 var mongodbURL =
@@ -29,7 +29,7 @@ app.get('/api/test', function(request, response){
 	response.end();
 })
 
-app.get('/api/database', function(request, response){ //連接到/api/test才會做的事情，request帶有連接進來的資訊(參數)，response為回傳的內容。
+app.get('/database', function(request, response){ //連接到/api/test才會做的事情，request帶有連接進來的資訊(參數)，response為回傳的內容。
 	var collection = myDB.collection('data'); //使用myDB的方法collection('data')取得data這個collection
 	collection.find({}).toArray(function(err, docs){ //使用collection的方法find()取得資料表內的內容，{}表示取得全部內容
 		if(err){                                     //使用toArray()將資料轉成陣列，function的docs是轉成陣列後的結果
