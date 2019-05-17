@@ -29,18 +29,18 @@ app.get('/api/test', function(request, response){
 	response.end();
 })
 
-// app.get('/api/test', function(request, response){ //連接到/api/test才會做的事情，request帶有連接進來的資訊(參數)，response為回傳的內容。
-// 	var collection = myDB.collection('data'); //使用myDB的方法collection('data')取得data這個collection
-// 	collection.find({}).toArray(function(err, docs){ //使用collection的方法find()取得資料表內的內容，{}表示取得全部內容
-// 		if(err){                                     //使用toArray()將資料轉成陣列，function的docs是轉成陣列後的結果
-// 			response.status(406).end();              //轉陣列過程若有err，回傳給錯誤碼406，此為Http協定狀態碼      
-// 		} else{                                      //.end()為將資料回傳給使用者
-// 			response.type('application/json');       //沒有錯誤回傳狀態碼200並附帶著資料，因為MongoDB存的資料就是JSON，所以不用特別轉換
-// 			response.status(200).send(docs);
-// 			response.end();
-// 		}
-//    });
-// });
+app.get('/api/database', function(request, response){ //連接到/api/test才會做的事情，request帶有連接進來的資訊(參數)，response為回傳的內容。
+	var collection = myDB.collection('data'); //使用myDB的方法collection('data')取得data這個collection
+	collection.find({}).toArray(function(err, docs){ //使用collection的方法find()取得資料表內的內容，{}表示取得全部內容
+		if(err){                                     //使用toArray()將資料轉成陣列，function的docs是轉成陣列後的結果
+			response.status(406).end();              //轉陣列過程若有err，回傳給錯誤碼406，此為Http協定狀態碼      
+		} else{                                      //.end()為將資料回傳給使用者
+			response.type('application/json');       //沒有錯誤回傳狀態碼200並附帶著資料，因為MongoDB存的資料就是JSON，所以不用特別轉換
+			response.status(200).send(docs);
+			response.end();
+		}
+   });
+});
 
 app.listen(process.env.PORT || 5000);
 console.log('port ' + (process.env.PORT || 5000)); //啟動伺服器，聆聽port 5000。預設為80port，所以多半被別人佔走。IP:127.0.0.1:5000，domain:http://localhost:5000
