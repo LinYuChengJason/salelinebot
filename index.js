@@ -39,10 +39,10 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.Mongo
 	}
 });
 
-app.get('/', function(request, response){ //app.get就是幫你做路由(分辨做哪種事情，類似事件監聽器 ex:新增資料、查詢資料、刪除資料、修改資料)。
-	response.status(200).send('<html><body><H1>Hello World</H1></body></html>'); // 200為http通訊協定 表示連線成功
-	response.end(); //end為回傳給使用者
-});
+// app.get('/', function(request, response){ //app.get就是幫你做路由(分辨做哪種事情，類似事件監聽器 ex:新增資料、查詢資料、刪除資料、修改資料)。
+// 	response.status(200).send('<html><body><H1>Hello World</H1></body></html>'); // 200為http通訊協定 表示連線成功
+// 	response.end(); //end為回傳給使用者
+// });
 
 app.get('/api/test', function(request, response){
 	var ret = {
