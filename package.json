@@ -5,5 +5,5 @@
   "dependencies": {
     "express": "*",
     "mongodb": "*",
-    "linebot" : "*"
+    "linebot": "*"
 }
