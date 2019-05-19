@@ -1,6 +1,30 @@
 var express = require('express'); //require為使用哪些模組
 var mongodb = require('mongodb'); //使用模組mongodb
+var linebot = require('linebot');
+
 var app = express(); //建立express實體，將express初始化，去NEW一個express，變數app才是重點。
+
+var bot = linebot({
+  "channelId": "1575984115",
+  "channelSecret": "ad28f6c787e82e13f79b27eb2214c761",
+  "channelAccessToken": "zyG+zZm76jgEwE1iTwvEJS2kHe/0NtM0t9zSp+9rL2dsQzyVLDA+sefLIXrDn0x8rQmIBDdMRvMJaDATddN4EJlll30VlV/LCXNimg1gy8Ent3gRbyTE2fy3AD4JbUB/qTZfWd1YIO8sucmbX32ntQdB04t89/1O/w1cDnyilFU="
+}); 
+
+bot.on('message', function(event) {
+  if (event.message.type = 'text') {
+    var msg = event.message.text;
+    event.reply(msg).then(function(data) {
+      // success 
+      console.log(msg);
+    }).catch(function(error) {
+      // error 
+      console.log('error');
+    });
+  }
+});
+
+var linebotParser = bot.parser();
+app.post('/', linebotParser);
 
 var mongodbURL =
 'mongodb+srv://LinYuCheng:a0936662285@salelinebot-6uako.mongodb.net/test?retryWrites=true'; //將MongoDB的位置在Server程式碼中以一個變數儲存
