@@ -7,32 +7,21 @@ var app = express(); //建立express實體，將express初始化，去NEW一個e
 var bot = linebot({
   "channelId": "1575984115",
   "channelSecret": "ad28f6c787e82e13f79b27eb2214c761",
-  "channelAccessToken": "zyG+zZm76jgEwE1iTwvEJS2kHe/0NtM0t9zSp+9rL2dsQzyVLDA+sefLIXrDn0x8rQmIBDdMRvMJaDATddN4EJlll30VlV/LCXNimg1gy8Ent3gRbyTE2fy3AD4JbUB/qTZfWd1YIO8sucmbX32ntQdB04t89/1O/w1cDnyilFU="
+  "channelAccessToken": "AwlymvJsyRL2CLokaZ0KCoLrf91l5FjUoiCztzM/UhI4bjSRnB/ZwMl3hGx8kMbSrQmIBDdMRvMJaDATddN4EJlll30VlV/LCXNimg1gy8GeoxAfTwrVYNQB3A5VOd548/W6JmFNcFQuTw8Xq8Ti8gdB04t89/1O/w1cDnyilFU="
 }); 
 
-
-bot.on('message', function (event) {
-  event.reply(event.message.text).then(function (data) {
-    // success
-    console.log(msg);
-  }).catch(function (error) {
-    // error
-    console.log('error');
-  });
+bot.on('message', function(event) {
+  if (event.message.type = 'text') {
+    var msg = event.message.text;
+    event.reply(msg).then(function(data) {
+      // success 
+      console.log(msg);
+    }).catch(function(error) {
+      // error 
+      console.log('error');
+    });
+  }
 });
-
-// bot.on('message', function(event) {
-//   if (event.message.type = 'text') {
-//     var msg = event.message.text;
-//     event.reply(msg).then(function(data) {
-//       // success 
-//       console.log(msg);
-//     }).catch(function(error) {
-//       // error 
-//       console.log('error');
-//     });
-//   }
-// });
 
 var linebotParser = bot.parser();
 app.post('/', linebotParser);
