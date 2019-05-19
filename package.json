@@ -6,5 +6,5 @@
     "express": "*",
     "mongodb": "*",
     "linebot": "*"
-}
+  }
 }
