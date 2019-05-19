@@ -33,7 +33,7 @@ bot.on('message', function (event) {
 // });
 
 var linebotParser = bot.parser();
-app.post('/', linebotParser);
+app.post('/line', linebotParser);
 
 var mongodbURL =
 'mongodb+srv://LinYuCheng:a0936662285@salelinebot-6uako.mongodb.net/test?retryWrites=true'; //將MongoDB的位置在Server程式碼中以一個變數儲存
