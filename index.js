@@ -16,11 +16,18 @@ bot.on('message', function(event) {
     event.reply(msg).then(function(data) {
       // success 
       console.log(msg);
-    })event.reply('?').catch(function(error) {	
+    }).catch(function(error) {	
       // error 
       console.log('error');
     });
   }
+  event.reply('?').then(function(data) {
+      // success 
+      console.log(msg);
+    }).catch(function(error) {	
+      // error 
+      console.log('error');
+    });
 });
 
 var linebotParser = bot.parser();
