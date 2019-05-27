@@ -11,7 +11,8 @@ var bot = linebot({
 }); 
 
 bot.on('message', function(event) {
-  if (event.message.type = 'text') {
+  console.log(event.message.type);
+  if (event.message.type == 'text') {
     var msg = event.message.text;
     event.reply(msg).then(function(data) {
       // success 
