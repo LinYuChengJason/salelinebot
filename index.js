@@ -22,13 +22,15 @@ bot.on('message', function(event) {
       console.log('error');
     });
   }
-  event.reply('?').then(function(data) {
+  else{
+  	event.reply('?').then(function(data) {
       // success 
       console.log(msg);
     }).catch(function(error) {	
       // error 
       console.log('error');
     });
+  }	
 });
 
 var linebotParser = bot.parser();
