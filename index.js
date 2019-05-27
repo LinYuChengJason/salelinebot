@@ -54,7 +54,9 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.Mongo
 // 	response.end(); //end為回傳給使用者
 // });
 
-app.get('/api/test', function(request, response){
+app.get('/broadcast', function(request, response){
+	bot.broadcast('Broadcast!');
+	
 	var ret = {
 		msg : 'Hello World',
 		status : 0
