@@ -66,8 +66,8 @@ app.get('/broadcast', function(request, response){
 })
 
 function find(collection, query, callback){
-	let collection = myDB.db("linebot").collection(collection);
-	collection.find(query).toArray(function(err, docs){
+	let collection1 = myDB.db("linebot").collection(collection);
+	collection1.find(query).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
