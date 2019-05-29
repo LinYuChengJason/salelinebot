@@ -89,8 +89,11 @@ app.get('/broadcast', function(request, response){
 function find(collection, query, callback){
 	let jobj = JSON.parse(JSON.stringify("{JS1902-01:true}"));
 
+	let newOptions = {'JS1902-01':true};
+	console.log("newOptions type = " + typeof(newOptions));
+
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find({}).project({"JS1902-01:true"}).toArray(function(err, docs){
+	collectionTarget.find({}).project(newOptions).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
