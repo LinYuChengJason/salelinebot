@@ -45,12 +45,10 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.Mongo
 	if(err){                                               //事件監聽器用在非同步程式碼，不確定何時會用到
 		console.log(err);                                  //若回傳的參數有error，用console.log()印出錯誤內容
 	} else{
-		myDB = db;                                         //在mongoDB成功連線後，留住db物件
+		myDB = db.db("linebot");                                        //在mongoDB成功連線後，留住db物件
 		console.log('connection success');                 //若沒有錯誤表示連線成功，印出connection success
 	}
 });
-
-var db = myDB.db("linebot");
 
 app.get('/broadcast', function(request, response){
 	bot.broadcast('Broadcast!');
@@ -60,7 +58,7 @@ app.get('/broadcast', function(request, response){
 })
 
 function find(collection, query, callback){
-	let collection1 = db.collection(collection);
+	let collection1 = myDB.collection(collection);
 	collection1.find(query).toArray(function(err, docs){
 		callback(err, docs);
 	});
