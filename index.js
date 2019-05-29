@@ -28,8 +28,8 @@ bot.on('message', function(event) {
 
     	find("stock", typeMap, function(err, docs){
     		let msg = "";
-    		for(let [type, number] in docs){
-    			msg += type + " -> " + number + "\n"; 
+    		for(let type in docs){
+    			msg += type + " -> " + docs[type] + "\n"; 
     		}
 
     		event.reply(JSON.stringify(msg)).then(function(data) {
