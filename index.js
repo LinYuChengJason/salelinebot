@@ -87,7 +87,7 @@ app.get('/broadcast', function(request, response){
 
 function find(collection, query, callback){
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find({}).project("{ _id : 0 , JS1902-01 : 1}").toArray(function(err, docs){
+	collectionTarget.find({}).project({ _id : 0 , "JS1902-01" : 1}).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
