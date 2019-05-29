@@ -19,9 +19,17 @@ bot.on('message', function(event) {
     let msg = event.message.text;
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
+
+    	let str = "{$or[";
     	for(let i = 1; i < msgAry.length; i++){
-    		let type = msgAry[i];
+    		str += "{product:{$elemMatch:{type:" + msgAry[i] + "}}}"; 
+    		if(msg.length == 1 || i == msgAry.length)
+    			continue;
+    		str += ",";
     	}
+    	str += "}";
+
+    	console.log(str);
     	console.log("success")
     }else{
     	event.reply(msg).then(function(data) {
