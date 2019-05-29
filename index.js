@@ -28,8 +28,9 @@ bot.on('message', function(event) {
     		str += ",";
     	}
     	str += "}";
+		console.log(str);
 
-    	find("linebot", str, function(err, docs){
+    	find("linebot", "{$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}", function(err, docs){
     		event.reply(docs).then(function(data) {
 		      // success 
 		      console.log(docs);
@@ -38,7 +39,7 @@ bot.on('message', function(event) {
 		      console.log(error);
 		    });
 	    })
-    	// console.log(str);
+    	
     	// console.log("success")
     }else{
     	event.reply(msg).then(function(data) {
