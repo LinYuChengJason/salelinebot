@@ -30,7 +30,7 @@ bot.on('message', function(event) {
     		let stock = docs[0];
     		let msg = "";
 			for(let type in stock){
-				msg += type + " -> " + stock[type] + "\n"; 
+				msg += type.toString() + " -> " + stock[type].toString() + "\n"; 
 			}
 
     		event.reply(msg).then(function(data) {
