@@ -32,8 +32,8 @@ bot.on('message', function(event) {
 			for(let type in stock){
 				msg += type.toString() + " -> " + stock[type].toString() + "\n"; 
 			}
-			if(stock = {}){
-				event.reply("錯誤").then(function(data) {
+			if(stock === {}){
+				event.reply("請輸入 stock").then(function(data) {
 		      // success 
 		      console.log(docs);
 
