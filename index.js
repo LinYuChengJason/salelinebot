@@ -29,8 +29,17 @@ bot.on('message', function(event) {
     	}
     	str += "}";
 
-    	console.log(str);
-    	console.log("success")
+    	find("linebot", str, function(err, docs){
+    		event.reply(docs).then(function(data) {
+		      // success 
+		      console.log(docs);
+		    }).catch(function(error) {	
+		      // error 
+		      console.log(error);
+		    });
+	    })
+    	// console.log(str);
+    	// console.log("success")
     }else{
     	event.reply(msg).then(function(data) {
 	      // success 
