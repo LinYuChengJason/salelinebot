@@ -22,7 +22,7 @@ bot.on('message', function(event) {
 
     	let str = "{_id:0,";
     	for(let i = 1; i < msgAry.length; i++){
-    		str += msgAry[i] + ":1"; 
+    		str += "'" + msgAry[i] + "':1"; 
     		if(i == msgAry.length - 1)
     			continue;
     		str += ",";
