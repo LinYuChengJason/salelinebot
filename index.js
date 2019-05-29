@@ -87,7 +87,8 @@ app.get('/broadcast', function(request, response){
 
 function find(collection, query, callback){
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find(query).project({_id:0, product:0, type:1, number:1}).toArray(function(err, docs){
+	collectionTarget.find("JS1902-01"
+ : { $exists: true }).project({"JS1902-01" : 1}).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
