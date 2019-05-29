@@ -17,7 +17,11 @@ bot.on('message', function(event) {
   console.log(event.message.type);
   if (event.message.type == 'text') {
     let msg = event.message.text;
-    if(msg === "reserve"){
+    if(msg.startsWith("stock")){
+    	let msgAry = msg.split(' ');
+    	for(let i = 1; i < msgAry.length; i++){
+    		let type = msgAry[i];
+    	}
     	console.log("success")
     }else{
     	event.reply(msg).then(function(data) {
@@ -87,7 +91,7 @@ function update(collection, id, data, callback)
 
 
 app.get('/find', function(request, response){
- 	find("salelinebot", {}, function(err, docs){
+ 	find("salelinebot", '{}', function(err, docs){
  		if(err)
  		{                                     
 			response.status(200).send(docs);
