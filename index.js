@@ -33,7 +33,7 @@ bot.on('message', function(event) {
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
     	find("salelinebot", str, function(err, docs){
-    		event.reply(JSON.stringify(docs)).then(function(data) {
+    		event.reply(docs.text).then(function(data) {
 		      // success 
 		      console.log(docs);
 		    }).catch(function(error) {	
