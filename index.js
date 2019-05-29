@@ -20,19 +20,19 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	let str = "{$or:[";
-    	for(let i = 1; i < msgAry.length; i++){
-    		str += "{product:{$elemMatch:{type:" + msgAry[i] + "}}}"; 
-    		if(msg.length == 1 || i == msgAry.length - 1)
-    			continue;
-    		str += ",";
-    	}
-    	str += "]}";
-		console.log(str);
+    	// let str = "{$or:[";
+    	// for(let i = 1; i < msgAry.length; i++){
+    	// 	str += "{product:{$elemMatch:{type:" + msgAry[i] + "}}}"; 
+    	// 	if(msg.length == 1 || i == msgAry.length - 1)
+    	// 		continue;
+    	// 	str += ",";
+    	// }
+    	// str += "]}";
+		// console.log(str);
 
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
-    	find("salelinebot", str, function(err, docs){
+    	find("salelinebot", {}, {_id:0, product:0, type:1, number:1}, function(err, docs){
     		event.reply(JSON.stringify(docs)).then(function(data) {
 		      // success 
 		      console.log(docs);
