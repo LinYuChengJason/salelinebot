@@ -87,7 +87,7 @@ app.get('/broadcast', function(request, response){
 })
 
 function find(collection, query, callback){
-	let jobj = JSON.parse(JSON.stringify("{_id:0,JS1902-01:1}"));
+	let jobj = JSON.parse(JSON.stringify("{JS1902-01:1}"));
 
 	let collectionTarget = myDB.collection(collection);
 	collectionTarget.find({}).project(jobj).toArray(function(err, docs){
