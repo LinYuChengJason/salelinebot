@@ -29,7 +29,7 @@ bot.on('message', function(event) {
     	}
     	str += "}";
 		console.log(str);
-		let jsonObj = JSON.parser(JSON.stringify(str));
+		let jsonObj = JSON.parse(JSON.stringify(str));
 
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
