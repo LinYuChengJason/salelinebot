@@ -90,7 +90,7 @@ function find(collection, query, callback){
 	let jobj = JSON.parse(JSON.stringify("{JS1902-01:true}"));
 
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find({}).project({query}).toArray(function(err, docs){
+	collectionTarget.find({}).project({"JS1902-01:true"}).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
