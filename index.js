@@ -23,7 +23,7 @@ bot.on('message', function(event) {
     	let str = "{$or[";
     	for(let i = 1; i < msgAry.length; i++){
     		str += "{product:{$elemMatch:{type:" + msgAry[i] + "}}}"; 
-    		if(msg.length == 1 || i == msgAry.length)
+    		if(msg.length == 1 || i == msgAry.length - 1)
     			continue;
     		str += ",";
     	}
