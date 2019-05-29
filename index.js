@@ -32,10 +32,16 @@ bot.on('message', function(event) {
 			for(let type in stock){
 				msg += type.toString() + " -> " + stock[type].toString() + "\n"; 
 			}
-			if(msg = ""){
-				event.reply("錯誤");
-			}
+			if(stock = {}){
+				event.reply("錯誤").then(function(data) {
+		      // success 
+		      console.log(docs);
 
+		    }).catch(function(error) {	
+		      // error 
+		      console.log(error);
+		    });
+			}
     		event.reply(msg).then(function(data) {
 		      // success 
 		      console.log(docs);
