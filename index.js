@@ -70,7 +70,13 @@ function find(collection, query, callback){
 
 app.get('/database', function(request, response){
  	find("salelinebot", {}, function(err, docs){
- 		if(err){                                     
+ 		if(err)
+ 		{                                     
+			response.status(200).send(docs);
+			response.end();
+		}
+		else{                                      
+			response.type('application/json');       
 			response.status(200).send(docs);
 			response.end();
 		}
