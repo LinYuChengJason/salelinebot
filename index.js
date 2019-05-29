@@ -20,17 +20,17 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	let str = "{$or[";
+    	let str = "{$or:[";
     	for(let i = 1; i < msgAry.length; i++){
     		str += "{product:{$elemMatch:{type:" + msgAry[i] + "}}}"; 
     		if(msg.length == 1 || i == msgAry.length - 1)
     			continue;
     		str += ",";
     	}
-    	str += "}";
+    	str += "]}";
 		console.log(str);
 
-    	find("linebot", "{$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}", function(err, docs){
+    	find("linebot", {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}, function(err, docs){
     		event.reply(docs).then(function(data) {
 		      // success 
 		      console.log(docs);
