@@ -40,7 +40,6 @@ var mongodbURL =
 'mongodb+srv://LinYuCheng:a0936662285@salelinebot-6uako.mongodb.net/test?retryWrites=true'; //將MongoDB的位置在Server程式碼中以一個變數儲存
 
 var myDB; //建立一個全域變數myDB
-const db = myDB.db("linebot");
 
 mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.MongoClient的方法connect()進行連線
 	if(err){                                               //事件監聽器用在非同步程式碼，不確定何時會用到
@@ -51,6 +50,7 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.Mongo
 	}
 });
 
+var db = myDB.db("linebot");
 
 app.get('/broadcast', function(request, response){
 	bot.broadcast('Broadcast!');
