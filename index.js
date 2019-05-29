@@ -28,20 +28,10 @@ bot.on('message', function(event) {
 
     	find("stock", typeDic, function(err, docs){
     		let stock = docs[0];
-    		let msg = "商品庫存如下\n";
+    		let msg = "商品庫存如下:\n";
 			for(let type in stock){
 				msg += type.toString() + " -> " + stock[type].toString() + "\n"; 
 			}
-			if(stock === {}){
-				event.reply("請輸入 stock").then(function(data) {
-			      // success 
-			      console.log(docs);
-
-			    }).catch(function(error) {	
-			      // error 
-			      console.log(error);
-			    });
-				}
     		event.reply(msg).then(function(data) {
 		      // success 
 		      console.log(docs);
