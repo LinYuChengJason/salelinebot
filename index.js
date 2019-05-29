@@ -20,7 +20,7 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	let str = "{_id:false,";
+    	let str = "{";
     	for(let i = 1; i < msgAry.length; i++){
     		str += "'" + msgAry[i] + "':true"; 
     		if(i == msgAry.length - 1)
