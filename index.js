@@ -22,7 +22,7 @@ bot.on('message', function(event) {
 
     	let typeDic = {}; // Dictionary Object (?)
     	typeDic['_id'] = false; // obj[KEY] = VALUE
-    	for(let i = 0; i < msgAry.length; i++){
+    	for(let i = 1; i < msgAry.length; i++){
     		typeDic[msgAry[i]] = true;
     	}
 
@@ -31,6 +31,9 @@ bot.on('message', function(event) {
     		let msg = "";
 			for(let type in stock){
 				msg += type.toString() + " -> " + stock[type].toString() + "\n"; 
+			}
+			if(msg = {}){
+				event.reply("錯誤");
 			}
 
     		event.reply(msg).then(function(data) {
