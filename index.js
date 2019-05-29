@@ -20,20 +20,22 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	let str = "{";
+    	let str = {};
+    	str['_id'] = false;
     	for(let i = 1; i < msgAry.length; i++){
-    		str +=  msgAry[i] + ":true"; 
-    		if(i == msgAry.length - 1)
-    			continue;
-    		str += ",";
+    		// str +=  msgAry[i] + ":true"; 
+    		// if(i == msgAry.length - 1)
+    		// 	continue;
+    		// str += ",";
+    		str[msgAry[i]] = true;
     	}
-    	str += "}";
-		console.log(str);
+    	// str += "}";
+		// console.log(str);
 		let jsonObj = JSON.parse(JSON.stringify(str));
 
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
-    	find("stock", jsonObj, function(err, docs){
+    	find("stock", str, function(err, docs){
     		event.reply(JSON.stringify(docs)).then(function(data) {
 		      // success 
 		      console.log(docs);
@@ -96,7 +98,7 @@ function find(collection, query, callback){
 	console.log("newOptions type = " + typeof(newOptions));
 
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find({}).project(kvpair).toArray(function(err, docs){
+	collectionTarget.find({}).project(query).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
