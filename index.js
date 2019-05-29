@@ -32,7 +32,7 @@ bot.on('message', function(event) {
 			for(let type in stock){
 				msg += type.toString() + " -> " + stock[type].toString() + "\n"; 
 			}
-			if(msg = {}){
+			if(msg = ""){
 				event.reply("錯誤");
 			}
 
