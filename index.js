@@ -20,9 +20,9 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	let str = "{_id:0,";
+    	let str = "{_id:false,";
     	for(let i = 1; i < msgAry.length; i++){
-    		str += "'" + msgAry[i] + "':1"; 
+    		str += "'" + msgAry[i] + "':true"; 
     		if(i == msgAry.length - 1)
     			continue;
     		str += ",";
@@ -90,7 +90,7 @@ function find(collection, query, callback){
 	let jobj = JSON.parse(JSON.stringify("{JS1902-01:true}"));
 
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find({}).project({jobj}).toArray(function(err, docs){
+	collectionTarget.find({}).project(query).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
