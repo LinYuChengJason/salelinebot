@@ -33,7 +33,7 @@ bot.on('message', function(event) {
 				msg += type + " -> " + stock[type] + "\n"; 
 			}
 
-    		event.reply(JSON.stringify(msg)).then(function(data) {
+    		event.reply(msg).then(function(data) {
 		      // success 
 		      console.log(docs);
 
