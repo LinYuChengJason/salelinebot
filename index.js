@@ -32,7 +32,7 @@ bot.on('message', function(event) {
 
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
-    	find("salelinebot", {}, function(err, docs){
+    	find("stock", {}, function(err, docs){
     		event.reply(JSON.stringify(docs)).then(function(data) {
 		      // success 
 		      console.log(docs);
@@ -87,7 +87,7 @@ app.get('/broadcast', function(request, response){
 
 function find(collection, query, callback){
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find("{JS1902-01 : { $exists: true }}").project({"_id" : 0}).toArray(function(err, docs){
+	collectionTarget.find("{JS1902-01 : { $exists: true }}").project({"JS1902-01":1}).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
