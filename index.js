@@ -20,25 +20,22 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	let str = {};
-    	str['_id'] = false;
+    	let typeMap = {}; // MAP Object
+    	typeMap['_id'] = false; // obj[KEY] = VALUE
     	for(let i = 1; i < msgAry.length; i++){
-    		// str +=  msgAry[i] + ":true"; 
-    		// if(i == msgAry.length - 1)
-    		// 	continue;
-    		// str += ",";
-    		str[msgAry[i]] = true;
+    		typeMap[msgAry[i]] = true;
     	}
-    	// str += "}";
-		// console.log(str);
-		let jsonObj = JSON.parse(JSON.stringify(str));
 
-// {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
+    	find("stock", typeMap, function(err, docs){
+    		let msg = "";
+    		for(let [type, number] in docs){
+    			msg += type + " -> " + number + "\n"; 
+    		}
 
-    	find("stock", str, function(err, docs){
-    		event.reply(JSON.stringify(docs)).then(function(data) {
+    		event.reply(JSON.stringify(msg)).then(function(data) {
 		      // success 
 		      console.log(docs);
+
 		    }).catch(function(error) {	
 		      // error 
 		      console.log(error);
@@ -89,14 +86,6 @@ app.get('/broadcast', function(request, response){
 })
 
 function find(collection, query, callback){
-	let jobj = JSON.parse(JSON.stringify("{JS1902-01:true}")); // failed
-
-	let newOptions = {'JS1902-01':true}; // OK
-	let kvpair = {};
-	kvpair['JS1902-01'] = true;
-
-	console.log("newOptions type = " + typeof(newOptions));
-
 	let collectionTarget = myDB.collection(collection);
 	collectionTarget.find({}).project(query).toArray(function(err, docs){
 		callback(err, docs);
