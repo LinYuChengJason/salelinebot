@@ -30,8 +30,10 @@ bot.on('message', function(event) {
     	str += "]}";
 		console.log(str);
 
-    	find("salelinebot", {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}, function(err, docs){
-    		event.reply(docs).then(function(data) {
+// {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
+
+    	find("salelinebot", str, function(err, docs){
+    		event.reply("" + docs).then(function(data) {
 		      // success 
 		      console.log(docs);
 		    }).catch(function(error) {	
