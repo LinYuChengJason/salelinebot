@@ -32,7 +32,7 @@ bot.on('message', function(event) {
 
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
-    	find("salelinebot", {}, {_id:0, product:0, type:1, number:1}, function(err, docs){
+    	find("salelinebot", {_id:0, product:0, type:1, number:1}, function(err, docs){
     		event.reply(JSON.stringify(docs)).then(function(data) {
 		      // success 
 		      console.log(docs);
