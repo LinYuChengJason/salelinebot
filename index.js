@@ -20,19 +20,20 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	// let str = "{$or:[";
-    	// for(let i = 1; i < msgAry.length; i++){
-    	// 	str += "{product:{$elemMatch:{type:" + msgAry[i] + "}}}"; 
-    	// 	if(msg.length == 1 || i == msgAry.length - 1)
-    	// 		continue;
-    	// 	str += ",";
-    	// }
-    	// str += "]}";
-		// console.log(str);
+    	let str = "{_id:0,";
+    	for(let i = 1; i < msgAry.length; i++){
+    		str += msgAry[i] + ":1"; 
+    		if(msg.length == 1 || i == msgAry.length - 1)
+    			continue;
+    		str += ",";
+    	}
+    	str += "}";
+		console.log(str);
+		let jsonObj = JSON.parser(JSON.stringify(str));
 
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
-    	find("stock", {}, function(err, docs){
+    	find("stock", jsonObj, function(err, docs){
     		event.reply(JSON.stringify(docs)).then(function(data) {
 		      // success 
 		      console.log(docs);
@@ -87,7 +88,7 @@ app.get('/broadcast', function(request, response){
 
 function find(collection, query, callback){
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find({}).project({ _id : 0 , "JS1902-01" : 1}).toArray(function(err, docs){
+	collectionTarget.find({}).project(query).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
