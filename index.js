@@ -32,7 +32,7 @@ bot.on('message', function(event) {
 
 // {$or:[{product:{$elemMatch:{type:'JS1902-01'}}},{product:{$elemMatch:{type:'JS1902-77'}}}]}
 
-    	find("salelinebot", {_id : 0, product : 0, type : 1, number : 1}, function(err, docs){
+    	find("salelinebot", {}, function(err, docs){
     		event.reply(JSON.stringify(docs)).then(function(data) {
 		      // success 
 		      console.log(docs);
@@ -87,7 +87,7 @@ app.get('/broadcast', function(request, response){
 
 function find(collection, query, callback){
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find(query).toArray(function(err, docs){
+	collectionTarget.find(query,{_id:0, product:0, type:1, number:1}).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
