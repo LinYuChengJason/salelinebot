@@ -16,16 +16,20 @@ app.post('/', linebotParser);
 bot.on('message', function(event) {
   console.log(event.message.type);
   if (event.message.type == 'text') {
-    var msg = event.message.text;
-    event.reply(msg).then(function(data) {
-      // success 
-      console.log(msg);
-    }).catch(function(error) {	
-      // error 
-      console.log('error');
-    });
+    let msg = event.message.text;
+    if(msg === "reserve"){
+    	console.log("success")
+    }else{
+    	event.reply(msg).then(function(data) {
+	      // success 
+	      console.log(msg);
+	    }).catch(function(error) {	
+	      // error 
+	      console.log(error);
+	    });
+    } 
   }
-  else{
+  else {
   	event.reply('?').then(function(data) {
       // success 
       console.log(msg);
@@ -58,11 +62,29 @@ app.get('/broadcast', function(request, response){
 })
 
 function find(collection, query, callback){
-	let collection1 = myDB.collection(collection);
-	collection1.find(query).toArray(function(err, docs){
+	let collectionTarget = myDB.collection(collection);
+	collectionTarget.find(query).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
+
+function insert(collection,)
+{
+	let collectionTarget = myDB.collection(collection);
+}
+
+function update(collection, id, data, callback)
+{
+	let collectionTarget = myDB.collection(collection);
+	collectionTarget.updateOne(
+	 { client_id: id },
+	 { $inc: { "size.uom": "cm", status: "P" },
+	 $currentDate: { lastModified: true } })
+	.then(function(result) {
+	  // process result
+	})
+}
+
 
 app.get('/find', function(request, response){
  	find("salelinebot", {}, function(err, docs){
