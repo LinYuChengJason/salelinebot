@@ -20,13 +20,13 @@ bot.on('message', function(event) {
     if(msg.startsWith("stock")){
     	let msgAry = msg.split(' ');
 
-    	let typeMap = {}; // MAP Object
-    	typeMap['_id'] = false; // obj[KEY] = VALUE
-    	for(let i = 1; i < msgAry.length; i++){
-    		typeMap[msgAry[i]] = true;
+    	let typeDic = {}; // Dictionary Object (?)
+    	typeDic['_id'] = false; // obj[KEY] = VALUE
+    	for(let i = 0; i < msgAry.length; i++){
+    		typeDic[msgAry[i]] = true;
     	}
 
-    	find("stock", typeMap, function(err, docs){
+    	find("stock", typeDic, function(err, docs){
     		let stock = docs[0];
     		let msg = "";
 			for(let type in stock){
