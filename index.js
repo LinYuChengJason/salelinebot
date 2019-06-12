@@ -14,39 +14,74 @@ var linebotParser = bot.parser();
 app.post('/', linebotParser);
 
 bot.on('message', function(event) {
-  console.log(event.message.type);
+  // console.log(event.message.type);
   if (event.message.type == 'text') {
-    let msg = event.message.text;
-    if(msg.startsWith("stock")){
-    	let msgAry = msg.split(' ');
+    let r_msg = event.message.text.toUpperCase();
+    console.log("Recieved Msg with Upper latter: " + r_msg);
+    if(r_msg.startsWith("?")){
+    	let msgAry = r_msg.split(' ');
+    	console.log(msgAry);
 
-    	let typeDic = {}; // Dictionary Object (?)
-    	typeDic['_id'] = false; // obj[KEY] = VALUE
-    	for(let i = 1; i < msgAry.length; i++){
-    		typeDic[msgAry[i]] = true;
-    	}
-
-    	find("stock", typeDic, function(err, docs){
-    		let stock = docs[0];
-    		let msg = "商品庫存如下:\n";
-			for(let type in stock){
-				msg += type.toString() + " -> " + stock[type].toString() + "\n"; 
-			}
-    		event.reply(msg).then(function(data) {
-		      // success 
-		      console.log(docs);
-
-		    }).catch(function(error) {	
-		      // error 
-		      console.log(error);
-		    });
-	    })
+    	let msg = "商品庫存如下:\n";
     	
+    	for(let i = 1; i < msgAry.length; i++)
+    	{
+    		let msgAry1 = msgAry[i].split('-');
+    		console.log("Model %d: %s", i, msgAry1);
+
+    		let is_msg_contain_submodel;
+    		if(msgAry1.length == 1){
+    			is_msg_contain_submodel = false;
+    		}else{
+    			is_msg_contain_submodel = true;
+    		}
+
+    		find("stock", {"model" : msgAry1[0]}, {_id : false}, function(err, docs){
+	    		console.dir(docs);
+
+	    		if(docs == null || docs.length == 0 || docs[0] == {}){
+	    			msg = "查無此型號!";
+	    		}else{
+	    			let model = docs[0].model;
+		    		let subModel = docs[0].submodel;
+		    		let update_time = docs[0].update_time;
+		    	
+			    	if(!is_msg_contain_submodel && subModel.length == 1 && subModel[0].type === ""){
+			    		//case 3
+			    		msg += model + " " + subModel[0].name + ' -> ' + subModel[0].inventory + '\n';
+			    	}else{
+			    		let condition = !is_msg_contain_submodel; //check case 1 or 2
+			    		for(let i of subModel)
+				    	{
+				    		let type = i.type;
+				    		let name = i.name;
+				    		let inventory = i.inventory;
+
+				    		if(condition || type === msgAry1[1])
+				    			msg += model + '-' + type + " " + name + ' -> ' + inventory + '\n';
+				    		else
+				    			continue;
+				    	}
+			    	}
+			    	msg += '\n最後更新時間: ' + update_time;
+	    		}
+
+	    		console.log("final msg %s", msg);
+	    		event.reply(msg).then(function(data) {
+			      // success 
+			      console.log(msg);
+			    }).catch(function(error) {	
+			      // error 
+			      console.log(error);
+			    });
+		    	
+		    });
+    	}
     	// console.log("success")
     }else{
-    	event.reply(msg).then(function(data) {
+    	event.reply(r_msg).then(function(data) {
 	      // success 
-	      console.log(msg);
+	      console.log(r_msg);
 	    }).catch(function(error) {	
 	      // error 
 	      console.log(error);
@@ -56,7 +91,7 @@ bot.on('message', function(event) {
   else {
   	event.reply('?').then(function(data) {
       // success 
-      console.log(msg);
+      console.log(r_msg);
     }).catch(function(error) {	
       // error 
       console.log('error');
@@ -79,15 +114,15 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db){ //使用mongodb.Mongo
 });
 
 app.get('/broadcast', function(request, response){
-	bot.broadcast('Broadcast!');
+	bot.broadcast('洗完澡就出門!');
 
-	response.status(200).send(JSON.stringify(ret));
+	response.status(200).send();
 	response.end();
 })
 
-function find(collection, query, callback){
+function find(collection, query, filter, callback){
 	let collectionTarget = myDB.collection(collection);
-	collectionTarget.find({}).project(query).toArray(function(err, docs){
+	collectionTarget.find(query).project(filter).toArray(function(err, docs){
 		callback(err, docs);
 	});
 }
@@ -111,7 +146,7 @@ function update(collection, id, data, callback)
 
 
 app.get('/find', function(request, response){
- 	find("salelinebot", '{}', function(err, docs){
+ 	find("stock", '{}', function(err, docs){
  		if(err)
  		{                                     
 			response.status(200).send(docs);
